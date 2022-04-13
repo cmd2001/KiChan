@@ -1,28 +1,47 @@
+import { Context } from 'telegraf';
 import { getManager } from 'typeorm';
 import { User } from '../entities/user.entity';
 
 export class UserService {
   private readonly userRepository = getManager().getRepository(User);
-  async findOrCreateUser(rawUser: {
-    id: number;
-    is_bot: boolean;
-    first_name: string;
-    last_name: string;
+  async findOrCreateUser(params: {
+    telegramUserId: number;
+    isBot: boolean;
+    firstName: string;
+    lastName: string;
     username: string;
-    language_code: string;
+    languageCode: string;
   }): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { telegramUserId: rawUser.id } });
+    const user = await this.userRepository.findOne({ where: { telegramUserId: params.telegramUserId } });
     if (user) {
-      return user;
+      user.firstName = params.firstName;
+      user.lastName = params.lastName;
+      user.username = params.username;
+      user.languageCode = params.languageCode;
+      user.isBot = params.isBot;
+      return await this.userRepository.save(user);
     }
-    const newUser = this.userRepository.create({
-      telegramUserId: rawUser.id,
-      isBot: rawUser.is_bot,
-      firstName: rawUser.first_name,
-      lastName: rawUser.last_name,
-      username: rawUser.username,
-      languageCode: rawUser.language_code
-    });
-    return this.userRepository.save(newUser);
+    return this.userRepository.save(this.userRepository.create(params));
   }
+  async findOrCreateUserByContext(ctx: Context): Promise<User> {
+    return this.findOrCreateUser({
+      telegramUserId: ctx.from.id,
+      isBot: ctx.from.is_bot,
+      firstName: ctx.from.first_name,
+      lastName: ctx.from.last_name,
+      username: ctx.from.username,
+      languageCode: ctx.from.language_code
+    });
+  }
+  async cleanUserRelatedData(userId: number): Promise<void> {
+    await this.userRepository.delete({ id: userId });
+  }
+}
+
+let userService: UserService;
+export default function getUserService(): UserService {
+  if (!userService) {
+    userService = new UserService();
+  }
+  return userService;
 }

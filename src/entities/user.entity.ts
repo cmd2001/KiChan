@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Message } from './message.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -11,6 +12,7 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Index()
   @Column()
   telegramUserId: number;
 
@@ -28,4 +30,7 @@ export class User extends BaseEntity {
 
   @Column()
   languageCode: string;
+
+  @OneToMany(() => Message, (chat) => chat.user)
+  chats: Message[];
 }
