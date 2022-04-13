@@ -1,0 +1,47 @@
+{
+  "name": "ki_chan",
+  "version": "0.0.1",
+  "description": "Telegram Bot Ki_Chan",
+  "author": "Amagi_Yukisaki",
+  "private": false,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start:dev": "ts-node-dev src/main.ts",
+    "start": "node dist/main.js",
+    "build": "yarn clean; tsc --build",
+    "clean": "rimraf dist",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint --ext .ts src/**"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,.json,.yml,.md}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "sqlite3": "^5.0.2",
+    "telegraf": "^4.7.0",
+    "typeorm": "^0.3.6",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8"
+  }
+}
