@@ -1,6 +1,6 @@
 import { Context } from 'telegraf';
-import { OperationType } from '../common/operationType.enum';
 import { BOT_NAME } from '../config/constants';
+import { OperationType } from '../entities/message.entity';
 import getMessageService from '../services/message.service';
 import getUserService from '../services/user.service';
 

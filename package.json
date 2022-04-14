@@ -27,7 +27,10 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "https-proxy-agent": "^5.0.0",
+    "nhentai-api": "^3.4.3",
     "sqlite3": "^5.0.2",
+    "telefile": "^0.1.1",
+    "telegra.ph": "^1.0.1",
     "telegraf": "^4.7.0",
     "typeorm": "^0.3.6",
     "typescript": "^4.6.3"

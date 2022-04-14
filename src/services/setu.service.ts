@@ -1,7 +1,6 @@
 import { getManager } from 'typeorm';
-import { OperationType } from '../common/operationType.enum';
 import { Status } from '../common/status.enum';
-import { Message } from '../entities/message.entity';
+import { Message, OperationType } from '../entities/message.entity';
 import { Setu } from '../entities/setu.entity';
 
 export class SetuService {

@@ -3,6 +3,7 @@ import setu from './commands/setu';
 import { clear, clear_abort, clear_confirm, start } from './commands/builtin';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 import { HTTPS_PROXY_URL } from './config/constants';
+import nhentai from './commands/nhentai';
 
 export class Bot {
   private readonly bot: Telegraf;
@@ -21,6 +22,7 @@ export class Bot {
     this.bot.action('clear_confirm', clear_confirm);
     this.bot.action('clear_abort', clear_abort);
     this.bot.command('setu', setu);
+    this.bot.command('nhentai', nhentai);
     this.bot.launch();
   }
 }

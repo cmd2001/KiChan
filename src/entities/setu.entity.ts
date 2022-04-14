@@ -13,7 +13,7 @@ export class Setu extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Message, (chat) => chat.setu, { onDelete: 'CASCADE' })
+  @OneToOne(() => Message, (message) => message.setu, { onDelete: 'CASCADE' })
   message: Message;
 
   @Index()

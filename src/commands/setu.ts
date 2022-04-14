@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { Context } from 'telegraf';
 import getMessageService from '../services/message.service';
-import { OperationType } from '../common/operationType.enum';
 import getSetuService from '../services/setu.service';
 import { Status } from '../common/status.enum';
+import { OperationType } from '../entities/message.entity';
 
 export default async function setu(ctx: Context) {
-  const chatService = getMessageService();
-  const message = await chatService.saveCommandByContext(ctx, OperationType.SETU);
+  const messageService = getMessageService();
+  const message = await messageService.saveCommandByContext(ctx, OperationType.SETU);
   const setuService = getSetuService();
   const params: Record<string, any> = {};
   const avaliableKeys = ['uid', 'pid', 'keyword'];

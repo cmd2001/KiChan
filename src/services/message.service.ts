@@ -1,9 +1,7 @@
 import { getManager } from 'typeorm';
-import { Message } from '../entities/message.entity';
-import { OperationType } from '../common/operationType.enum';
+import { Message, MessageType, OperationType } from '../entities/message.entity';
 import { Context } from 'telegraf';
 import getUserService from './user.service';
-import { MessageType } from '../common/messageType.enum';
 
 export class MessageService {
   private readonly messageRepository = getManager().getRepository(Message);

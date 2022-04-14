@@ -9,10 +9,21 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
-import { OperationType } from '../common/operationType.enum';
-import { MessageType } from '../common/messageType.enum';
+import { Hentai } from './hentai.entity';
 import { Setu } from './setu.entity';
 import { User } from './user.entity';
+
+export enum MessageType {
+  COMMAND = 'command',
+  ACTION = 'action',
+  TEXT = 'text'
+}
+
+export enum OperationType {
+  BUILT_IN = 'built_in',
+  SETU = 'setu',
+  HENTAI = 'hentai'
+}
 
 @Entity()
 export class Message extends BaseEntity {
@@ -47,6 +58,9 @@ export class Message extends BaseEntity {
   @Column({ type: 'simple-enum', enum: OperationType })
   operationType: OperationType;
 
-  @OneToOne(() => Setu, (setu) => setu.message, { nullable: true, onDelete: 'CASCADE' })
+  @OneToOne(() => Setu, (setu) => setu.message, { nullable: true })
   setu: Setu;
+
+  @OneToOne(() => Hentai, (hentai) => hentai.message, { nullable: true })
+  hentai: Hentai;
 }
