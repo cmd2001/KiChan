@@ -12,9 +12,10 @@ export class Bot {
       ? new Telegraf(botToken, {
           telegram: {
             agent: new HttpsProxyAgent(HTTPS_PROXY_URL)
-          }
+          },
+          handlerTimeout: 1800000
         })
-      : new Telegraf(botToken);
+      : new Telegraf(botToken, { handlerTimeout: 1800000 });
   }
   async launch(): Promise<void> {
     this.bot.start(start);
